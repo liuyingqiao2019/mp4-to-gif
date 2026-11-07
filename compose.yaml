@@ -1,15 +1,39 @@
+
 services:
   gif:
     build: .
-    ports:
-      - "3815:3815"
+    image: tools-mp4togif:local
+    container_name: tools-mp4togif
     restart: unless-stopped
+
+    init: true
+
+    expose:
+      - "3815"
+
     mem_limit: 2g
     cpus: 2
     pids_limit: 128
+
     environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: "3815"
       PUBLIC_ORIGIN: ${PUBLIC_ORIGIN:-}
+      FFMPEG_PATH: /usr/bin/ffmpeg
+      FFPROBE_PATH: /usr/bin/ffprobe
+
     volumes:
       - gif-work:/app/work
+
+    networks:
+      web-proxy:
+        aliases:
+          - tools-mp4togif
+
 volumes:
   gif-work:
+
+networks:
+  web-proxy:
+    external: true
