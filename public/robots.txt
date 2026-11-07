@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://tools-mp4togif.tangmenjue.top/sitemap.xml

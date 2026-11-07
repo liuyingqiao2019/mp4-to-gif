@@ -1,6 +1,15 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MP4转GIF</title><link rel="stylesheet" href="style.css"></head>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MP4转GIF在线工具｜保留原始尺寸、可设置文件大小上限</title>
+<meta name="description" content="在线将MP4视频转换为GIF动图，保留原始像素尺寸，支持设置帧率和目标文件大小，可通过降低帧率尝试缩小GIF。无需注册，上传后在服务器转换。">
+<link rel="canonical" href="https://tools-mp4togif.tangmenjue.top/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:title" content="MP4转GIF在线工具｜保留原始尺寸、可设置文件大小上限">
+<meta property="og:description" content="在线将MP4视频转换为GIF动图，保留原始像素尺寸，支持设置帧率和目标文件大小，可通过降低帧率尝试缩小GIF。无需注册，上传后在服务器转换。">
+<meta property="og:url" content="https://tools-mp4togif.tangmenjue.top/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "MP4转GIF", "url": "https://tools-mp4togif.tangmenjue.top/", "description": "在线将MP4视频转换为GIF动图，保留原始像素尺寸，支持设置帧率和目标文件大小，可通过降低帧率尝试缩小GIF。无需注册，上传后在服务器转换。", "applicationCategory": "MultimediaApplication", "operatingSystem": "Web", "inLanguage": "zh-CN", "featureList": ["MP4视频转GIF", "保留原始像素尺寸", "设置1–50 FPS帧率", "设置目标文件大小并尝试降低帧率"]}</script><link rel="stylesheet" href="style.css"></head>
 <body><header><a class="brand" href="/">MP4转GIF</a></header><main>
+<section class="intro" aria-labelledby="page-title"><h1 id="page-title">MP4转GIF在线工具</h1><p>保留原始像素尺寸，自定义帧率与文件大小上限。无需注册，上传视频即可转换。</p></section>
 <div class="workspace"><section class="preview" aria-label="上传视频">
 <label id="drop" class="drop" for="file"><span class="plus" aria-hidden="true">＋</span><strong>上传视频</strong><span>拖放文件，或点击选择</span><small>最大 1 GB</small></label>
 <input type="file" id="file" accept="video/*" hidden><video id="video" controls hidden></video>
@@ -12,4 +21,14 @@
 <button id="convert" type="submit" disabled>开始转换</button></fieldset></form>
 <button id="cancel" class="secondary" hidden>取消转换</button><p id="status" role="status" aria-live="polite">请先上传视频。</p><progress id="progress" hidden></progress></section></div>
 <section id="result" hidden><div class="resulthead"><div><h2 id="resultTitle">转换完成</h2><p id="details"></p></div><a id="download" class="download" download="converted.gif">下载 GIF</a></div><img id="gif" alt="转换结果预览"><details><summary>转换记录</summary><pre id="history"></pre></details></section>
+<section class="guide" aria-labelledby="guide-title">
+<h2 id="guide-title">如何把MP4视频转换为GIF？</h2>
+<ol><li>点击上传区域或拖入视频，单个文件最大1 GB。</li><li>设置帧率（1–50 FPS，默认15 FPS）；需要控制体积时填写文件大小上限。</li><li>如果可以接受流畅度降低，勾选“允许降低帧率以满足大小上限”，再点击“开始转换”。</li><li>查看转换结果与实际大小，并在页面提示的自动清理时间前下载GIF。</li></ol>
+<h2>常见问题</h2>
+<details><summary>转换会缩小视频宽度或高度吗？</summary><p>工具保留原始像素尺寸，不通过缩小宽高控制体积。带旋转信息的视频会自动校正方向，宽高可能互换。GIF每帧最多256色，保留尺寸不代表颜色完全无损。</p></details>
+<details><summary>为什么设置了文件大小上限，结果仍然超出？</summary><p>文件大小上限是优化目标，不能保证一定达到。允许降帧时，工具尝试降低帧率，并保留本轮最小结果；如果仍超出，会明确提示未达标。可以提高上限，或先裁剪为更短的视频再上传。</p></details>
+<details><summary>帧率怎么选？</summary><p>可以从默认15 FPS开始。更低帧率通常能减少体积，但动作会更不连贯；更高帧率通常更流畅，也可能增大文件。实际大小还取决于视频尺寸、时长和画面内容。</p></details>
+<details><summary>视频会上传到服务器吗？文件保留多久？</summary><p>会。网页将视频上传到服务器进行转换，并非全部在浏览器内处理。原视频在转换结束、失败或取消后删除；已结束任务的结果文件每半小时统一清理，保留到下一轮清理，不保证完整保留30分钟。服务重启也会清理遗留任务文件，请及时下载。</p></details>
+<details><summary>需要注册吗？为什么会提示已有任务正在转换？</summary><p>无需注册。当前服务一次处理一个转换任务，忙碌时请稍后重试。MP4能否成功转换还取决于其中的视频编码及服务器解码能力。</p></details>
+</section>
 <footer><span>文件每半小时自动清理，请及时下载。</span><a id="icp" hidden target="_blank" rel="noopener noreferrer" href="https://beian.miit.gov.cn/"></a></footer></main><script src="app.js" type="module"></script></body></html>
