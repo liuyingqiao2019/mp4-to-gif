@@ -1,0 +1,5 @@
+node_modules/
+work/
+.npm-cache/
+bin/*.exe
+.env

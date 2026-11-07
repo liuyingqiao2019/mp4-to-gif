@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MP4转GIF</title><link rel="stylesheet" href="style.css"></head>
+<body><header><a class="brand" href="/">MP4转GIF</a></header><main>
+<div class="workspace"><section class="preview" aria-label="上传视频">
+<label id="drop" class="drop" for="file"><span class="plus" aria-hidden="true">＋</span><strong>上传视频</strong><span>拖放文件，或点击选择</span><small>最大 1 GB</small></label>
+<input type="file" id="file" accept="video/*" hidden><video id="video" controls hidden></video>
+<div class="fileline"><span id="filename">未选择文件</span><label for="file" class="change">更换视频</label></div></section>
+<section class="settings"><h2>转换设置</h2><form id="form"><fieldset id="fields">
+<label class="title" for="fps">帧率</label><div class="number"><input id="fps" type="number" min="1" max="50" step="1" value="15" required><span>帧 / 秒</span></div>
+<label class="title spaced" for="mb">文件大小上限 <span>可选</span></label><div class="number"><input id="mb" type="number" min="0.001" max="1000" step="any" placeholder="不限制"><span>MB</span></div>
+<label class="check spaced"><input id="allowDrop" type="checkbox" checked>允许降低帧率以满足大小上限</label><p class="hint">保持原始尺寸，不降低颜色设置。</p>
+<button id="convert" type="submit" disabled>开始转换</button></fieldset></form>
+<button id="cancel" class="secondary" hidden>取消转换</button><p id="status" role="status" aria-live="polite">请先上传视频。</p><progress id="progress" hidden></progress></section></div>
+<section id="result" hidden><div class="resulthead"><div><h2 id="resultTitle">转换完成</h2><p id="details"></p></div><a id="download" class="download" download="converted.gif">下载 GIF</a></div><img id="gif" alt="转换结果预览"><details><summary>转换记录</summary><pre id="history"></pre></details></section>
+<footer><span>文件每半小时自动清理，请及时下载。</span><a id="icp" hidden target="_blank" rel="noopener noreferrer" href="https://beian.miit.gov.cn/"></a></footer></main><script src="app.js" type="module"></script></body></html>

@@ -1,0 +1,15 @@
+services:
+  gif:
+    build: .
+    ports:
+      - "3815:3815"
+    restart: unless-stopped
+    mem_limit: 2g
+    cpus: 2
+    pids_limit: 128
+    environment:
+      PUBLIC_ORIGIN: ${PUBLIC_ORIGIN:-}
+    volumes:
+      - gif-work:/app/work
+volumes:
+  gif-work:
