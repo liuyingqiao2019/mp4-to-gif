@@ -37,6 +37,8 @@ job.result={...selected,url:`/api/jobs/${job.id}/output`,met:job.met};job.state=
 const send=(res,status,data)=>{res.writeHead(status,{'Content-Type':'application/json; charset=utf-8'});res.end(JSON.stringify(data));};
 const server=createServer(async(req,res)=>{try{
 const url=new URL(req.url,'http://127.0.0.1:3815');
+// Conversion jobs and generated files are not public search landing pages.
+if(url.pathname.startsWith('/api/'))res.setHeader('X-Robots-Tag','noindex, nofollow');
 if(req.headers.origin && req.headers.origin!==`http://${req.headers.host}` && req.headers.origin!==process.env.PUBLIC_ORIGIN)return send(res,403,{error:'Origin rejected'});
 if(req.method==='POST'&&url.pathname==='/api/jobs'){
 const fps=Number(url.searchParams.get('fps')),raw=url.searchParams.get('mb'),mb=raw?Number(raw):null;
@@ -52,8 +54,8 @@ if(match){const j=jobs.get(match[1]);if(!j||j.cleaning)return send(res,410,{erro
 if(req.method==='DELETE'&&!match[2]){if(j.state==='running'){j.cancelled=true;j.child?.kill();}return send(res,200,{ok:true});}
 if(req.method==='GET'&&match[2]){if(j.state!=='done')return send(res,404,{error:'结果未就绪'});res.writeHead(200,{'Content-Type':'image/gif','Content-Disposition':'inline; filename="converted.gif"','Cache-Control':'no-store'});j.downloads=(j.downloads||0)+1;try{await pipeline(createReadStream(path.join(j.dir,'output.gif')),res);}finally{j.downloads--;}return;}
 if(req.method==='GET'){const {child,dir,input,...safe}=j;return send(res,200,{...safe,nextCleanupAt});}}
-const files={'/':['index.html','text/html; charset=utf-8'],'/style.css':['style.css','text/css'],'/app.js':['app.js','text/javascript']};
-if(req.method==='GET'&&files[url.pathname]){const [name,type]=files[url.pathname];res.writeHead(200,{'Content-Type':type});await pipeline(createReadStream(path.join(root,'public',name)),res);return;}
+const files={'/':['index.html','text/html; charset=utf-8'],'/style.css':['style.css','text/css'],'/app.js':['app.js','text/javascript'],'/robots.txt':['robots.txt','text/plain; charset=utf-8'],'/sitemap.xml':['sitemap.xml','application/xml; charset=utf-8']};
+if((req.method==='GET'||req.method==='HEAD')&&files[url.pathname]){const [name,type]=files[url.pathname];res.writeHead(200,{'Content-Type':type});if(req.method==='HEAD'){res.end();return;}await pipeline(createReadStream(path.join(root,'public',name)),res);return;}
 send(res,404,{error:'Not found'});
 }catch(e){if(!res.headersSent)send(res,400,{error:e.message});else res.end();}});
 let sweeping=false;
